@@ -125,6 +125,7 @@ class SlmsappStaff(models.Model):
     gender = models.CharField(max_length=100)
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
+    floor_incharge_name = models.CharField(max_length=100)
     admin = models.OneToOneField(SlmsappCustomuser, models.DO_NOTHING)
 
     class Meta:
@@ -138,6 +139,8 @@ class SlmsappStaffLeave(models.Model):
     to_date = models.CharField(max_length=100)
     message = models.TextField()
     status = models.IntegerField()
+    parent_phone = models.CharField(max_length=20)  # Assuming parent phone number can contain characters
+    student_phone = models.CharField(max_length=20)  
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
     staff_id = models.ForeignKey(SlmsappStaff, models.DO_NOTHING)

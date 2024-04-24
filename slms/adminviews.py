@@ -27,7 +27,10 @@ def ADD_STAFF(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         address = request.POST.get('address')
-        gender = request.POST.get('gender')
+        department = request.POST.get('department')
+        parent_phone = request.POST.get('parent_phone')
+        student_phone = request.POST.get('student_phone')
+
 
         if CustomUser.objects.filter(email=email).exists():
             messages.warning(request,'Email is already Exist')
@@ -44,7 +47,9 @@ def ADD_STAFF(request):
             staff = Staff(
                 admin = user,
                 address = address,
-                gender = gender
+                Department = department,
+                parent_phone =parent_phone,
+                student_phone = student_phone,
             )
             staff.save()
             messages.success(request,'Staff details has beend added successfully')
@@ -76,8 +81,9 @@ def UPDATE_STAFF(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         address = request.POST.get('address')
-        gender = request.POST.get('gender')
-
+        department = request.POST.get('department')
+        parent_phone = request.POST.get('parent_phone')
+        student_phone = request.POST.get('student_phone')
         user = CustomUser.objects.get(id = staff_id)
         user.username =username
         user.first_name =first_name
@@ -90,8 +96,10 @@ def UPDATE_STAFF(request):
             user.profile_pic = profile_pic
         user.save()
         staff = Staff.objects.get(admin = staff_id)
-        staff.gender = gender
+        staff.department = department
         staff.address = address
+        staff.parent_phone= parent_phone
+        staff.student_phone = student_phone
         staff.save()
         messages.success(request,'Staf details has been succeesfully updated')
         return redirect('view_staff')
@@ -112,7 +120,12 @@ def STAFF_LEAVE_VIEW(request):
     }
     
     return render(request,'admin/staff_leave.html',context)
-
+def STAFF_PROOF_VIEW(request):
+    staff_leave = Staff_Leave.objects.all()
+    context = {
+        "staff_leave":staff_leave,
+    }
+    return render(request,'admin/proofview.html',context)
 def STAFF_APPROVE_LEAVE(request,id):
     leave = Staff_Leave.objects.get(id = id)
     leave.status = 1

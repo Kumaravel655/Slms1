@@ -23,7 +23,8 @@ urlpatterns = [
     path('Admin/Staff/Update',adminviews.UPDATE_STAFF,name='update_staff'),
     path('Admin/Staff/<str:admin>',adminviews.DELETE_STAFF,name='delete_staff'),
     path('Admin/Leaveview',adminviews.STAFF_LEAVE_VIEW,name='staff_leave_view_admin'),
-    path('Admin/Leaveview',adminviews.STAFF_LEAVE_VIEW,name='staff_leave_view_admin'),
+    path('Admin/Proofview',adminviews.STAFF_PROOF_VIEW,name='staff_proof_view_admin'),
+    
     path('Admin/Staff/Approve_Leave/<str:id>',adminviews.STAFF_APPROVE_LEAVE,name='staff_approve_leave'),
     path('Admin/Staff/Disapprove_Leave/<str:id>',adminviews.STAFF_DISAPPROVE_LEAVE,name='staff_disapprove_leave'),
 

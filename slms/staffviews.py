@@ -31,20 +31,20 @@ def STAFF_APPLY_LEAVE(request):
 def STAFF_APPLY_LEAVE_SAVE(request):
     if request.method == "POST":
         leave_type = request.POST.get('leave_type')
+        proof = request.FILES.get('proof')
         from_date = request.POST.get('from_date')
         to_date = request.POST.get('to_date')
-        message = request.POST.get('message')
-
+        message = request.POST.get('message') 
         staff = Staff.objects.get(admin = request.user.id)
 
         leave = Staff_Leave(
             staff_id = staff,
             leave_type = leave_type,
+            proof= proof,
             from_date = from_date,
             to_date = to_date,
             message = message,
-
-
+            
           )
         leave.save()
         messages.success(request,'Leave apply successfully')

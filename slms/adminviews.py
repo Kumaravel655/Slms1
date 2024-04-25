@@ -9,8 +9,9 @@ from django.db.models import Q
 
 @login_required(login_url='/')
 def HOME(request):
+    current_user = request.user.username
     staff_count = Staff.objects.all().count()
-    leave_count = Staff_Leave.objects.all().count()
+    leave_count = Staff_Leave.objects.filter(leave_type=current_user).count()
     context ={
         'staff_count':staff_count,
         'leave_count':leave_count
@@ -30,6 +31,8 @@ def ADD_STAFF(request):
         department = request.POST.get('department')
         parent_phone = request.POST.get('parent_phone')
         student_phone = request.POST.get('student_phone')
+        FloorIncharge = request.POST.get('student_phone')
+        timetable = request.FILES.get('timetable')
 
 
         if CustomUser.objects.filter(email=email).exists():
@@ -50,9 +53,11 @@ def ADD_STAFF(request):
                 Department = department,
                 parent_phone =parent_phone,
                 student_phone = student_phone,
+                floor_incharge= FloorIncharge,
+                TimeTable=timetable,
             )
             staff.save()
-            messages.success(request,'Staff details has beend added successfully')
+            messages.success(request,'Student details has beend added successfully')
             return redirect('add_staff')
 
     return render(request,'admin/add_staff.html')
@@ -84,6 +89,8 @@ def UPDATE_STAFF(request):
         department = request.POST.get('department')
         parent_phone = request.POST.get('parent_phone')
         student_phone = request.POST.get('student_phone')
+        floor_incharge = request.POST.get('FloorIncharge')
+        
         user = CustomUser.objects.get(id = staff_id)
         user.username =username
         user.first_name =first_name
@@ -100,8 +107,9 @@ def UPDATE_STAFF(request):
         staff.address = address
         staff.parent_phone= parent_phone
         staff.student_phone = student_phone
+        staff.floor_incharge = floor_incharge
         staff.save()
-        messages.success(request,'Staf details has been succeesfully updated')
+        messages.success(request,'Student details has been succeesfully updated')
         return redirect('view_staff')
         
     return render(request,'admin/edit_staff.html')
@@ -114,17 +122,28 @@ def DELETE_STAFF(request,admin):
 
 
 def STAFF_LEAVE_VIEW(request):
-    staff_leave = Staff_Leave.objects.all()
+    current_user = request.user.username
+    
+    # Assuming there's a ForeignKey relationship between Staff_Leave and User for the floor in-charge
+    staff_leave = Staff_Leave.objects.filter(leave_type=current_user)
+    
     context = {
-        "staff_leave":staff_leave,
+        "staff_leave": staff_leave,
     }
     
     return render(request,'admin/staff_leave.html',context)
 def STAFF_PROOF_VIEW(request):
-    staff_leave = Staff_Leave.objects.all()
+    # Assuming you have a User model for authentication and a Staff_Leave model for leave forms
+    current_user = request.user.username
+    
+    # Assuming there's a ForeignKey relationship between Staff_Leave and User for the floor in-charge
+    staff_leave = Staff_Leave.objects.filter(leave_type=current_user)
+    
     context = {
-        "staff_leave":staff_leave,
+        "staff_leave": staff_leave,
     }
+    return render(request, 'admin/proofview.html', context)
+
     return render(request,'admin/proofview.html',context)
 def STAFF_APPROVE_LEAVE(request,id):
     leave = Staff_Leave.objects.get(id = id)

@@ -17,7 +17,8 @@ class Staff(models.Model):
     Department = models.CharField(max_length=100)
     parent_phone = models.CharField(max_length=20)  # Assuming parent phone number can contain characters
     student_phone = models.CharField(max_length=20) 
-    room_bed_number = models.CharField(max_length=50, unique=False)
+    floor_incharge = models.CharField(max_length=50) 
+    TimeTable = models.ImageField(upload_to='media/timetable')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

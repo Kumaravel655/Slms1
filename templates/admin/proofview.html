@@ -32,16 +32,40 @@
                        {% endif %}
                         {% endfor %}
                        {% endif %}
-                        
+                       <table  class="display responsive-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student Name</th>
+                                <th>FloorIncharge Name</th>
+                                
+                                <th>Leave Start Date</th>
+                                <th>Leave End Date</th>
+                                <th>Department</th>
+                                <th>Student phone</th>
+                                <th>Parent phone</th>
+                                <th>Proof</th>
+                                <th>Message</th>
+                                <th>Apply Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
                      
                         <tbody>
                             {% for i in staff_leave %}
  
                             <tr>
-                                 
-                                 
-                                
-                                <td><img src="/{{i.proof}}" alt=""></td>
+                                <td>{{i.id}}</td>
+                                <td>{{i.staff_id.admin.first_name}} {{i.staff_id.admin.last_name}}</td>
+                                <td>{{i.leave_type}}</td>
+                               
+                                <td>{{i.from_date}}</td>
+                                <td>{{i.to_date}}</td>
+                                <td>{{i.staff_id.Department}}</td>
+                                <td>{{i.staff_id.student_phone}}</td>
+                                <td>{{i.staff_id.parent_phone}}</td>
+                             
+                                <td><img src="/{{i.proof}}" height="50" width="150" class="square" alt=""></td>
                                 <td>{{i.message}}</td>
                                 <td>{{i.created_at}}</td>
                                 <td>

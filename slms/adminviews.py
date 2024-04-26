@@ -172,7 +172,7 @@ def STAFF_PROOF_VIEW(request):
     worksheet = workbook.add_worksheet()
     
     # Write headers
-    headers = ['ID', 'Student Name', 'Floor Incharge', 'From Date', 'To Date', 'Department', 'Student Phone', 'Parent Phone', 'Message', 'Created At']
+    headers = ['ID', 'Student Name', 'Floor Incharge', 'From Date', 'To Date', 'Department', 'Student Phone', 'Parent Phone', 'Message','RoomNumber', 'Created At']
     for col, header in enumerate(headers):
         worksheet.write(0, col, header)
     
@@ -188,7 +188,8 @@ def STAFF_PROOF_VIEW(request):
         worksheet.write(row, 6, leave.staff_id.student_phone)
         worksheet.write(row, 7, leave.staff_id.parent_phone)
         worksheet.write(row, 8, leave.message)
-        worksheet.write(row, 9, leave.created_at.strftime('%Y-%m-%d %H:%M:%S'))
+        worksheet.write(row, 9, leave.staff_id.room_number)
+        worksheet.write(row, 10, leave.created_at.strftime('%Y-%m-%d %H:%M:%S'))
         row += 1
     
     workbook.close()
@@ -206,7 +207,7 @@ def STAFF_PROOF_VIEW1(request):
     worksheet = workbook.add_worksheet()
     
     # Write headers
-    headers = ['ID', 'Student Name', 'Floor Incharge', 'From Date', 'To Date', 'Department', 'Student Phone', 'Parent Phone', 'Message', 'Created At']
+    headers = ['ID', 'Student Name', 'Floor Incharge', 'From Date', 'To Date', 'Department', 'Student Phone', 'Parent Phone', 'Message', 'Room Number','Created At']
     for col, header in enumerate(headers):
         worksheet.write(0, col, header)
     
@@ -222,7 +223,8 @@ def STAFF_PROOF_VIEW1(request):
         worksheet.write(row, 6, leave.staff_id.student_phone)
         worksheet.write(row, 7, leave.staff_id.parent_phone)
         worksheet.write(row, 8, leave.message)
-        worksheet.write(row, 9, leave.created_at.strftime('%Y-%m-%d %H:%M:%S'))
+        worksheet.write(row, 9, leave.staff_id.room_number)
+        worksheet.write(row, 10, leave.created_at.strftime('%Y-%m-%d %H:%M:%S'))
         row += 1
     
     workbook.close()

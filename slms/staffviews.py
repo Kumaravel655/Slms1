@@ -22,9 +22,17 @@ def HOME(request):
 
     return render(request,'staff/home.html',context)
 
+
+
 @login_required(login_url='/')   
 def STAFF_APPLY_LEAVE(request):
     return render(request,'staff/apply_leave.html')
+
+@login_required(login_url='/')   
+def PROFILE(request):
+    staff = Staff.objects.filter(admin = request.user.id)
+    
+    return render(request,'staff/VIEW.html')
 
 
 @login_required(login_url='/')   

@@ -24,6 +24,9 @@ urlpatterns = [
     path('Admin/Staff/<str:admin>',adminviews.DELETE_STAFF,name='delete_staff'),
     path('Admin/Leaveview',adminviews.STAFF_LEAVE_VIEW,name='staff_leave_view_admin'),
     path('Admin/Proofview',adminviews.STAFF_PROOF_VIEW,name='staff_proof_view_admin'),
+    path('Admin/Proofview1',adminviews.STAFF_PROOF_VIEW1,name='staff_proof_view_admin1'),
+
+    path('Admin/export-leave-excel', adminviews.ExportLeaveExcel.as_view(), name='export_leave_excel'),
     
     path('Admin/Staff/Approve_Leave/<str:id>',adminviews.STAFF_APPROVE_LEAVE,name='staff_approve_leave'),
     path('Admin/Staff/Disapprove_Leave/<str:id>',adminviews.STAFF_DISAPPROVE_LEAVE,name='staff_disapprove_leave'),
@@ -33,6 +36,7 @@ urlpatterns = [
     path('Staff/Apply_Leave', staffviews.STAFF_APPLY_LEAVE, name='staff_apply_leave'),
     path('Staff/Apply_Leave_save', staffviews.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
     path('Staff/Leaveview',staffviews.STAFF_LEAVE_VIEW,name='staff_leave_view'),
+    path('Staff/Profile',staffviews.PROFILE,name='profile'),
     
     
     #profile path

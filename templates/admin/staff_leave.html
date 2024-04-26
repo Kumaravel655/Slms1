@@ -3,6 +3,9 @@
 
             <main class="middle-content">
                 <h5 style="color: blue;padding-top: 10px;padding-left: 10px;">View Student Leave</h5>
+                <a href="{% url 'staff_proof_view_admin' %}" class="btn btn-primary">Export OUR Leave as Excel</a>
+                <a href="{% url 'staff_proof_view_admin1' %}" class="btn btn-primary">Export ALL Students Leave as Excel</a>
+                 
                 <div class="row">
                 <div class="middle-content">
                     
@@ -45,7 +48,9 @@
                                 <th>Student phone</th>
                                 <th>Parent phone</th>
                                 <th>Proof</th>
+                                <th>TimeTable</th>
                                 <th>Message</th>
+                                <th>RoomNumber</th>
                                 <th>Apply Date</th>
                                 <th>Action</th>
                             </tr>
@@ -66,8 +71,11 @@
                                 <td>{{i.staff_id.parent_phone}}</td>
                              
                                 <td><img src="/{{i.proof}}" height="50" width="150" class="square" alt=""></td>
+                                <td><img src="/{{i.staff_id.TimeTable}}" height="50" width="150" class="square" alt=""></td>
                                 <td>{{i.message}}</td>
                                 <td>{{i.created_at}}</td>
+                                <td>{{i.created_at}}</td>
+
                                 <td>
                                     {% if i.status == 0 %}
                                     <a href="{% url 'staff_approve_leave' i.id %}" class="btn btn-success" style="background-color: green;">Approve</a>

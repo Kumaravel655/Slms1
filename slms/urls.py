@@ -25,6 +25,7 @@ urlpatterns = [
     path('Admin/Leaveview',adminviews.STAFF_LEAVE_VIEW,name='staff_leave_view_admin'),
     path('Admin/Proofview',adminviews.STAFF_PROOF_VIEW,name='staff_proof_view_admin'),
     path('Admin/Proofview1',adminviews.STAFF_PROOF_VIEW1,name='staff_proof_view_admin1'),
+    path('Admin/Pass/<int:id>/',adminviews.PASS,name='pass'),
 
     path('Admin/export-leave-excel', adminviews.ExportLeaveExcel.as_view(), name='export_leave_excel'),
     
@@ -37,6 +38,8 @@ urlpatterns = [
     path('Staff/Apply_Leave_save', staffviews.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
     path('Staff/Leaveview',staffviews.STAFF_LEAVE_VIEW,name='staff_leave_view'),
     path('Staff/Profile',staffviews.PROFILE,name='profile'),
+    path('Staff/Pass/<int:id>/',staffviews.PASS,name='pass'),
+
     
     
     #profile path

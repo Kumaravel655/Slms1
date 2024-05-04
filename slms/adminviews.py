@@ -9,6 +9,8 @@ import csv
 from django.views.generic import View
 import xlsxwriter
 import tablib
+from django.shortcuts import render, get_object_or_404
+
 
 class ExportLeaveExcel(View):
     def get(self, request, *args, **kwargs):
@@ -50,6 +52,7 @@ def ADD_STAFF(request):
         department = request.POST.get('department')
         parent_phone = request.POST.get('parent_phone')
         student_phone = request.POST.get('student_phone')
+        floor_incharge_phone=request.POST.get('FloorIncharge_number')
         FloorIncharge = request.POST.get('FloorIncharge')
         timetable = request.FILES.get('timetable')
         room_number = request.POST.get('Room')
@@ -76,6 +79,7 @@ def ADD_STAFF(request):
                 floor_incharge= FloorIncharge,
                 TimeTable=timetable,
                 room_number= room_number,
+                floor_incharge_phone=floor_incharge_phone,
             )
             staff.save()
             messages.success(request,'Student details has beend added successfully')
@@ -111,6 +115,7 @@ def UPDATE_STAFF(request):
         parent_phone = request.POST.get('parent_phone')
         student_phone = request.POST.get('student_phone')
         floor_incharge = request.POST.get('FloorIncharge')
+        floor_incharge_phone=request.POST.get('FloorIncharge_number')
         timetable = request.FILES.get('timetable')
         room_number = request.POST.get('Room')
 
@@ -134,6 +139,7 @@ def UPDATE_STAFF(request):
         staff.floor_incharge = floor_incharge
         staff.timetable = timetable
         staff.room_number= room_number
+        staff.floor_incharge_phone=floor_incharge_phone
         staff.save()
         messages.success(request,'Student details has been succeesfully updated')
         return redirect('view_staff')
@@ -240,6 +246,14 @@ def STAFF_DISAPPROVE_LEAVE(request,id):
     leave.status = 2
     leave.save()
     return redirect('staff_leave_view_admin')
-
+def PASS(request, id):
+    # Retrieve the Staff_Leave object using the provided id
+    staff_leave = get_object_or_404(Staff_Leave, id=id)
+    
+    context = {
+        "staff_leave": staff_leave,
+    }
+    
+    return render(request, 'admin/proofview.html', context)
 
 

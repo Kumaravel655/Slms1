@@ -8,7 +8,6 @@
     <style>
         /* Define CSS styles for the slip */
         .leave-slip {
-           
             max-width: 600px;
             margin: auto;
             border: 2px solid #ccc;
@@ -16,20 +15,20 @@
             padding: 20px;
             background-color: #f9f9f9;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative; /* Needed for absolute positioning */
         }
         .student-photo {
             position: absolute;
-            top: 120px; /* Adjust as needed */
+            top: 20px; /* Adjust as needed */
             left: 20px; /* Adjust as needed */
             max-width: 200px; /* Adjust as needed */
             max-height: 200px; /* Adjust as needed */
         }
-        .leave-details {
-            margin-left: 250px; /* Adjust according to the width of the photo */
+        .leave-slip-header {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .leave-details p {
-            margin-top: 0; /* Reset default margin */
+        .leave-details {
+            margin-bottom: 10px;
         }
         .leave-details strong {
             font-weight: bold;
@@ -37,7 +36,6 @@
         .leave-details img {
             max-width: 100%;
             border-radius: 10px;
-            display: block; /* Ensures proper alignment */
         }
         .action-buttons {
             text-align: center;
@@ -68,18 +66,17 @@
         <div class="leave-slip-header">
             <h1>Leave Slip</h1>
         </div>
-        <div></div>
-        <img src="/{{user.profile_pic}}" alt="Student Photo" class="student-photo">
         <div class="leave-details">
+            
             <p><strong>ID:</strong> {{ staff_leave.id }}</p>
             <p><strong>Name:</strong> {{ staff_leave.staff_id.admin.first_name }} {{ staff_leave.staff_id.admin.last_name }}</p>
             <p><strong>Incharge Staff Name:</strong> {{ staff_leave.leave_type }}</p>
-            <p><strong>Leave Start Date:</strong> {{ staff_leave.from_date }}</p>
+           <img src="{{ staff_leave.student_photo.url }}" alt="Student Photo" class="student-photo">
+<p><strong>Leave Start Date:</strong> {{ staff_leave.from_date }}</p>
             <p><strong>Leave End Date:</strong> {{ staff_leave.to_date }}</p>
             <p><strong>Department:</strong> {{ staff_leave.staff_id.Department }}</p>
             <p><strong>Student Phone:</strong> {{ staff_leave.staff_id.student_phone }}</p>
             <p><strong>Parent Phone:</strong> {{ staff_leave.staff_id.parent_phone }}</p>
-            <p><strong>FloorIncharge Phone:</strong> {{ staff_leave.staff_id.floor_incharge_phone }}</p>
             <p><strong>Message:</strong> {{ staff_leave.message }}</p>
             <p><strong>Room Number:</strong> {{ staff_leave.staff_id.room_number }}</p>
             <p><strong>Apply Date:</strong> {{ staff_leave.created_at }}</p>
@@ -94,6 +91,7 @@
             <button class="btn btn-danger" disabled>Disapproved</button>
             {% endif %}
         </div>
+        
     </div>
 </body>
 </html>

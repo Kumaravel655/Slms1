@@ -5,21 +5,33 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from slmsapp.models import CustomUser,Staff,Staff_Leave
 from django.db.models import Q
+from datetime import date
 
-
+import tablib
+from django.shortcuts import render, get_object_or_404
 
 
 @login_required(login_url='/')
 def HOME(request):
-    staff = Staff.objects.filter(admin = request.user.id)
+    current_date = date.today()
+
+    # Filter staff by the current user ID
+    staff = Staff.objects.filter(admin=request.user.id)
+
     for i in staff:
         staff_id = i.id
-        staff_leave_history = Staff_Leave.objects.filter(staff_id = staff_id)
-        context = {
-            'staff_leave_history':staff_leave_history,
-        }
-    
+        
+        # Filter staff leave history where to_date is in the future
+        staff_leave_history = Staff_Leave.objects.filter(
+            staff_id=staff_id,
+            to_date__gte=current_date
+        )
 
+        context = {
+            'staff_leave_history': staff_leave_history,
+        }
+
+     
     return render(request,'staff/home.html',context)
 
 
@@ -59,12 +71,28 @@ def STAFF_APPLY_LEAVE_SAVE(request):
         return redirect('staff_apply_leave')
 
 @login_required(login_url='/')    
+
+
 def STAFF_LEAVE_VIEW(request):
     staff = Staff.objects.filter(admin = request.user.id)
     for i in staff:
         staff_id = i.id
         staff_leave_history = Staff_Leave.objects.filter(staff_id = staff_id)
-        context = {
+    
+    context = {
             'staff_leave_history':staff_leave_history,
         }
-        return render(request,'staff/leave_history.html',context)
+    
+
+
+    return render(request, 'staff/leave_history.html', context)
+def PASS(request, id):
+    # Retrieve the Staff_Leave object using the provided id
+    staff_leave = get_object_or_404(Staff_Leave, id=id)
+    
+    context = {
+        "staff_leave": staff_leave,
+    }
+    
+    return render(request, 'admin/proofview.html', context)
+

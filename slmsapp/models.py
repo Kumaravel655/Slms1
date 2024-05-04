@@ -17,7 +17,8 @@ class Staff(models.Model):
     Department = models.CharField(max_length=100)
     parent_phone = models.CharField(max_length=20)  # Assuming parent phone number can contain characters
     student_phone = models.CharField(max_length=20) 
-    floor_incharge = models.CharField(max_length=50) 
+    floor_incharge = models.CharField(max_length=50)
+    floor_incharge_phone = models.CharField(max_length=20)  
     TimeTable = models.ImageField(upload_to='media/timetable')
     room_number = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,3 +39,4 @@ class Staff_Leave(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Changed to auto_now=True for updated_at field
     def __str__(self):
         return self.staff_id.admin.first_name + self.staff_id.admin.last_name 
+
